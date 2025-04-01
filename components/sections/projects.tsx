@@ -6,28 +6,42 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github, ArrowRight } from "lucide-react"
+import Link from "next/link"
 
-const projects = [
+// Change from const to export const so it can be imported elsewhere
+export const projects = [
   {
     id: 5,
     title: "AI-based Viva Assessment & Proctoring Platform",
     description: "An advanced AI-powered platform designed to conduct and evaluate viva exams in real time. It uses machine learning models for automated question generation, real-time video monitoring with facial detection, and behavior analysis to ensure academic integrity. The platform supports automated evaluation, report generation, and secure proctoring with adaptive learning insights, offering a scalable and unbiased examination experience.",
     image: "VivaVista-1.png",
+    images: [
+      "/VivaVista-1.png",
+      "/VivaVista-2.png",
+      "/VivaVista-3.png"
+    ],
     tags: ["Django", "OpenCV", "Gemini API", "MongoDB"],
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/viva-assessment",
-    category: "featured"
+    category: "featured",
+    year: "2023"
   },
   {
     id: 1,
     title: "E-commerce Grocery Recommendation Website",
     description: "An ML-powered e-commerce website with grocery recommendations and REST API integration.",
     image: "/images/grocery-recommendation.png",
+    images: [
+      "/images/grocery-recommendation.png",
+      "/images/grocery-recommendation-2.png",
+      "/images/grocery-recommendation-3.png"
+    ],
     tags: ["Django", "Machine Learning", "REST API", "MongoDB"],
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/ecommerce-grocery",
     category: "featured",
+    year: "2023"
   },
   {
     id: 2,
@@ -38,6 +52,7 @@ const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/mytodo-flask",
     category: "web",
+    year: "2022"
   },
   {
     id: 3,
@@ -48,6 +63,7 @@ const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/recipe-chatbot",
     category: "ai",
+    year: "2022"
   },
   {
     id: 4,
@@ -58,8 +74,8 @@ const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/markdown-converter",
     category: "web",
+    year: "2021"
   },
-  
   {
     id: 6,
     title: "CRM for Personalized Emails",
@@ -69,6 +85,7 @@ const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/crm-email",
     category: "web",
+    year: "2023"
   },
 ];
 
@@ -161,14 +178,17 @@ function Project3DCard({ project }) {
 
         <CardContent className="p-6" style={{ transform: "translateZ(30px)" }}>
           <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-          <p className="text-muted-foreground mb-4">{project.description}</p>
-          <div className="flex flex-wrap gap-2">
+          <p className="text-muted-foreground mb-4 line-clamp-2">{project.description}</p>
+          <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map((tag, index) => (
               <Badge key={index} variant="secondary">
                 {tag}
               </Badge>
             ))}
           </div>
+          <Link href={`/projects/${project.id}`} className="text-primary flex items-center hover:underline">
+            View Details <ArrowRight size={16} className="ml-1" />
+          </Link>
         </CardContent>
       </Card>
     </motion.div>
