@@ -1,0 +1,84 @@
+/* === Floating + 3D Tilt + Fade-In === */
+
+.hero-image-container {
+    display: inline-block;
+    perspective: 1200px; /* Enable 3D perspective */
+    transition: box-shadow 0.3s ease;
+  }
+  
+  /* Image Styling */
+  .hero-image {
+    width: 100%;
+    max-width: 320px; /* Limits the image size on larger screens */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 50%;
+    object-fit: cover;
+  
+    /* Ensure 3D transformation */
+    transform-style: preserve-3d;
+    will-change: transform;
+  
+    /* Smooth transition for tilt */
+    transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+    animation: float 4s ease-in-out infinite; /* Floating effect */
+  }
+  
+  /* Fade-In Animation */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 1.5s ease forwards;
+  }
+  
+  /* Hover Glow Effect */
+  .hero-image:hover {
+    box-shadow: 0 0 40px rgba(0, 153, 255, 0.6);
+  }
+  
+  /* Floating Animation */
+  @keyframes float {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Fade-In Animation */
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  
+  /* Small devices (phones) */
+  @media (max-width: 600px) {
+    .hero-image {
+      max-width: 180px; /* Smaller profile image */
+    }
+  }
+  
+  /* Medium devices (tablets) */
+  @media (min-width: 601px) and (max-width: 1024px) {
+    .hero-image {
+      max-width: 240px; /* Adjusted for tablets */
+    }
+  }
+  
+  /* Large devices (desktops) */
+  @media (min-width: 1025px) {
+    .hero-image {
+      max-width: 320px; /* Full size for larger screens */
+    }
+  }
+  
