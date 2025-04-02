@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MongoClient } from "mongodb"
+import nodemailer from 'nodemailer'
 
 // MongoDB connection string
 const uri = process.env.MONGODB_URI
@@ -29,7 +30,6 @@ const validateForm = (data: any) => {
 
 export async function POST(request: Request) {
   try {
-    // Parse request body
     const data = await request.json()
 
     // Validate form data
@@ -38,21 +38,37 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, errors: validationErrors }, { status: 400 })
     }
 
-    // Check if MongoDB URI is configured
-    if (!uri) {
-      console.error("MONGODB_URI is not defined")
-      return NextResponse.json({ success: false, message: "Database configuration error" }, { status: 500 })
-    }
+    // Setup email transporter
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
+      }
+    });
+
+    // Email options
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_RECIPIENT,
+      subject: `Portfolio Contact: ${data.subject}`,
+      html: `
+        <h3>New Contact Form Submission</h3>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Subject:</strong> ${data.subject}</p>
+        <p><strong>Message:</strong> ${data.message}</p>
+      `
+    };
 
     // Connect to MongoDB
     const client = new MongoClient(uri)
     await client.connect()
 
-    // Access database and collection
+    // Save to database
     const database = client.db("portfolio")
     const collection = database.collection("messages")
 
-    // Create message document with IST timestamp
     const message = {
       name: data.name,
       email: data.email,
@@ -68,24 +84,24 @@ export async function POST(request: Request) {
         second: '2-digit',
         hour12: true
       }),
-      timestamp: new Date() // Keep UTC timestamp for sorting/querying
+      timestamp: new Date()
     }
 
-    // Insert message into collection
-    await collection.insertOne(message)
+    // Perform both operations
+    await Promise.all([
+      collection.insertOne(message),
+      transporter.sendMail(mailOptions)
+    ]);
 
-    // Close connection
+    // Close MongoDB connection
     await client.close()
 
-    // Return success response
     return NextResponse.json({ success: true, message: "Message sent successfully" }, { status: 201 })
   } catch (error) {
-    console.error("Error submitting contact form:", error)
-
-    // Return error response
+    console.error("Error processing contact form:", error)
     return NextResponse.json(
       { success: false, message: "An error occurred while processing your request" },
-      { status: 500 },
+      { status: 500 }
     )
   }
 }
