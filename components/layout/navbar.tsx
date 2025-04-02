@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -40,7 +41,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop navigation */}
-        <nav className="hidden md:flex space-x-8">
+        <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href} className="relative group">
               <span className="text-sm font-medium hover:text-primary transition-colors">{link.name}</span>
@@ -49,14 +50,17 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-4">
+          <ThemeToggle fromNavbar={true} />
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile navigation */}
@@ -70,6 +74,9 @@ export default function Navbar() {
             transition={{ duration: 0.3 }}
           >
             <nav className="flex flex-col space-y-4 p-4">
+              <div className="py-2">
+                <ThemeToggle />
+              </div>
               {navLinks.map((link) => (
                 <Link
                   key={link.name}

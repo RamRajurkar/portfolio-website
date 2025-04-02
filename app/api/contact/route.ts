@@ -52,13 +52,23 @@ export async function POST(request: Request) {
     const database = client.db("portfolio")
     const collection = database.collection("messages")
 
-    // Create message document
+    // Create message document with IST timestamp
     const message = {
       name: data.name,
       email: data.email,
       subject: data.subject,
       message: data.message,
-      createdAt: new Date(),
+      createdAt: new Date().toLocaleString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      }),
+      timestamp: new Date() // Keep UTC timestamp for sorting/querying
     }
 
     // Insert message into collection

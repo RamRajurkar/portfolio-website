@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -11,7 +11,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Mail, Phone, MapPin, Send, Loader2 } from "lucide-react"
+import { Mail, Phone, MapPin, Send, Loader2, CheckCircle, AlertCircle } from "lucide-react"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 
 // Form schema
 const formSchema = z.object({
@@ -23,6 +24,7 @@ const formSchema = z.object({
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const { toast } = useToast()
 
   // Initialize form
@@ -39,6 +41,7 @@ export default function Contact() {
   // Form submission handler
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsSubmitting(true)
+    setFormStatus('idle')
 
     try {
       const response = await fetch("/api/contact", {
@@ -54,11 +57,13 @@ export default function Contact() {
       }
 
       form.reset()
+      setFormStatus('success')
       toast({
         title: "Message sent!",
         description: "Thank you for your message. I will get back to you soon.",
       })
     } catch (error) {
+      setFormStatus('error')
       toast({
         title: "Something went wrong",
         description: "There was an error submitting your message. Please try again.",
@@ -66,6 +71,11 @@ export default function Contact() {
       })
     } finally {
       setIsSubmitting(false)
+      
+      // Reset form status after 5 seconds
+      setTimeout(() => {
+        setFormStatus('idle')
+      }, 5000)
     }
   }
 
@@ -102,10 +112,10 @@ export default function Contact() {
                 <div>
                   <h4 className="font-medium">Email</h4>
                   <a
-                    href="mailto:contact@example.com"
+                    href="mailto:ram.s.rajurkar@gmail.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
                   >
-                    contact@example.com
+                    ram.s.rajurkar@gmail.com
                   </a>
                 </div>
               </div>
@@ -117,7 +127,7 @@ export default function Contact() {
                 <div>
                   <h4 className="font-medium">Phone</h4>
                   <a href="tel:+15551234567" className="text-muted-foreground hover:text-primary transition-colors">
-                    +1 (555) 123-4567
+                    +91 8625067058
                   </a>
                 </div>
               </div>
@@ -128,7 +138,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="font-medium">Location</h4>
-                  <p className="text-muted-foreground">San Francisco, California, USA</p>
+                  <p className="text-muted-foreground">Nagpur, Maharashtra, India</p>
                 </div>
               </div>
             </div>
@@ -137,7 +147,7 @@ export default function Contact() {
               <h3 className="text-2xl font-bold mb-6">Follow Me</h3>
               <div className="flex space-x-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/RamRajurkar"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-muted hover:bg-primary/20 transition-colors p-3 rounded-full"
@@ -152,7 +162,7 @@ export default function Contact() {
                   </svg>
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/ram-rajurkar-647b90258/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-muted hover:bg-primary/20 transition-colors p-3 rounded-full"
@@ -246,6 +256,42 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
+
+                    <AnimatePresence>
+                      {formStatus === 'success' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Alert className="bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-900">
+                            <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+                            <AlertTitle className="text-green-800 dark:text-green-400">Message sent successfully!</AlertTitle>
+                            <AlertDescription className="text-green-700 dark:text-green-500">
+                              Thank you for your message. I will get back to you soon.
+                            </AlertDescription>
+                          </Alert>
+                        </motion.div>
+                      )}
+
+                      {formStatus === 'error' && (
+                        <motion.div
+                          initial={{ opacity: 0, y: -10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <Alert className="bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-900">
+                            <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+                            <AlertTitle className="text-red-800 dark:text-red-400">Something went wrong</AlertTitle>
+                            <AlertDescription className="text-red-700 dark:text-red-500">
+                              There was an error submitting your message. Please try again.
+                            </AlertDescription>
+                          </Alert>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
                     <Button type="submit" className="w-full" disabled={isSubmitting}>
                       {isSubmitting ? (

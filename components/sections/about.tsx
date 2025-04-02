@@ -3,12 +3,13 @@
 import { Suspense, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment, Html, Float } from "@react-three/drei"
-import { motion } from "framer-motion"
+import { motion, useAnimation, useInView } from "framer-motion"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
-import { Code, Server, Globe } from "lucide-react"
+import { Brain, Cpu, Database, Network, Code, Server, Globe } from "lucide-react"
+import { useEffect, useRef } from "react"
 
 // 3D Models for skills
 function SkillModel({ skill, position }) {
@@ -54,7 +55,7 @@ function SkillsScene() {
 
 // Skills data
 const skills = [
-  { name: "Python", level: 90, category: "backend" },
+  { name: "Python", level: 97, category: "backend" },
   // { name: "Tailwind CSS", level: 85, category: "frontend" },
   // { name: "JavaScript", level: 90, category: "frontend" },
   // { name: "TypeScript", level: 85, category: "frontend" },
@@ -64,7 +65,7 @@ const skills = [
   { name: "Express.js", level: 80, category: "backend" },
   { name: "MongoDB", level: 90, category: "backend" },
   { name: "RESTful APIs", level: 85, category: "backend" },
-  { name: "Automations", level: 80, category: "backend" },
+  { name: "Automations", level: 90, category: "backend" },
   { name: "OpenCV", level: 85, category: "backend" },
   { name: "AI Proctoring Systems", level: 90, category: "backend" },
   { name: "Gemini API", level: 80, category: "backend" },
@@ -132,6 +133,141 @@ const education = [
   },
 ];
 
+
+// New Tech Grid component to replace the 3D Canvas
+function TechGrid() {
+  const controls = useAnimation()
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: false, amount: 0.3 })
+  
+  useEffect(() => {
+    if (isInView) {
+      controls.start("visible")
+    }
+  }, [controls, isInView])
+  
+  const techItems = [
+    { icon: Brain, color: "#6366f1", label: "AI" },
+    { icon: Cpu, color: "#8b5cf6", label: "ML" },
+    { icon: Database, color: "#ec4899", label: "Data" },
+    { icon: Code, color: "#10b981", label: "Code" },
+    { icon: Network, color: "#f59e0b", label: "Networks" },
+    { icon: Server, color: "#3b82f6", label: "Systems" },
+  ]
+  
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  }
+  
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.6 }
+    }
+  }
+  
+  return (
+    <motion.div 
+      ref={ref}
+      className="grid grid-cols-2 md:grid-cols-3 gap-6 h-full w-full"
+      variants={containerVariants}
+      initial="hidden"
+      animate={controls}
+    >
+      {techItems.map((item, index) => (
+        <motion.div
+          key={index}
+          className="relative bg-background/50 backdrop-blur-sm rounded-xl p-6 flex flex-col items-center justify-center overflow-hidden border border-muted hover:border-primary transition-all duration-300"
+          variants={itemVariants}
+          whileHover={{ 
+            scale: 1.05, 
+            boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+          }}
+        >
+          {/* Animated background gradient */}
+          <div 
+            className="absolute inset-0 opacity-20 animate-pulse" 
+            style={{ 
+              background: `radial-gradient(circle at center, ${item.color}80 0%, transparent 70%)`,
+              animation: `pulse 3s infinite ${index * 0.5}s`
+            }}
+          />
+          
+          {/* Floating particles */}
+          <div className="absolute inset-0 overflow-hidden">
+            {[...Array(5)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute w-2 h-2 rounded-full"
+                style={{ 
+                  background: item.color,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+                animate={{
+                  x: [0, Math.random() * 30 - 15],
+                  y: [0, Math.random() * 30 - 15],
+                  opacity: [0.2, 0.8, 0.2],
+                }}
+                transition={{
+                  duration: 3 + Math.random() * 2,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
+              />
+            ))}
+          </div>
+          
+          <motion.div
+            animate={{ 
+              y: [0, -5, 0],
+              rotate: [0, 5, 0, -5, 0]
+            }}
+            transition={{ 
+              duration: 5, 
+              repeat: Infinity,
+              repeatType: "loop"
+            }}
+            className="relative z-10 mb-4"
+          >
+            <item.icon size={48} style={{ color: item.color }} />
+          </motion.div>
+          
+          <h3 className="text-xl font-bold relative z-10">{item.label}</h3>
+          
+          {/* Connecting lines */}
+          <svg className="absolute inset-0 w-full h-full" style={{ opacity: 0.2 }}>
+            <motion.line 
+              x1="50%" y1="50%" 
+              x2="100%" y2="100%" 
+              stroke={item.color} 
+              strokeWidth="1"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
+            />
+            <motion.line 
+              x1="50%" y1="50%" 
+              x2="0%" y2="100%" 
+              stroke={item.color} 
+              strokeWidth="1"
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", delay: 0.5 }}
+            />
+          </svg>
+        </motion.div>
+      ))}
+    </motion.div>
+  )
+}
 
 export default function About() {
   const [activeSkillCategory, setActiveSkillCategory] = useState("all")
@@ -217,13 +353,8 @@ export default function About() {
             viewport={{ once: true }}
             className="h-[400px] w-full"
           >
-            <Suspense
-              fallback={<div className="h-full w-full flex items-center justify-center">Loading 3D Skills...</div>}
-            >
-              <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-                <SkillsScene />
-              </Canvas>
-            </Suspense>
+            {/* Replace the Canvas with our new TechGrid component */}
+            <TechGrid />
           </motion.div>
         </div>
 
