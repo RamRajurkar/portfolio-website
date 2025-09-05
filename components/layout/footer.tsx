@@ -138,8 +138,8 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-border mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Portfolio. All rights reserved.</p>
-          <p className="mt-1">Designed and developed with ❤️ using React, Three.js, and Node.js</p>
+          <p>&copy; {new Date().getFullYear()} Ram Rajurkar. All rights reserved.</p>
+          <p className="mt-1">Designed and developed with ❤️ using React, Three.js, and Next.js</p>
         </div>
       </div>
     </footer>

@@ -118,6 +118,13 @@ const experiences = [
 // Education data
 const education = [
   {
+    degree: "Bachelor of Technology in Computer Science & IOT Engineering",
+    institution: "Vishwakarma Institute of Technology, Pune",
+    period: "2025 - 2028",
+    description:
+      "Focused on Computer Science fundamentals, Internet of Things (IoT), Artificial Intelligence, and Data-driven technologies. Gaining hands-on experience in software development, IoT systems, cloud computing, and modern programming tools while building problem-solving, innovation, and research skills.",
+  },
+  {
     degree: "Diploma in Artificial Intelligence & Machine Learning",
     institution: "Government Polytechnic Nagpur",
     period: "2022 - 2025",
