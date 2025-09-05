@@ -74,7 +74,7 @@ export default function Hero() {
     },
     {
       icon: Instagram,
-      url: "https://instagram.com/yourusername",
+      url: "https://www.instagram.com/ram_rajurkar_007?igsh=MXJ4anJkaXVyNG5qdQ==",
       color: "hover:text-[#E4405F]",
       label: "Instagram",
     },

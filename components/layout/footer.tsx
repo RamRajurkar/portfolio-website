@@ -20,12 +20,12 @@ export default function Footer() {
               <Link href="https://www.linkedin.com/in/ram-rajurkar-647b90258/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Linkedin className="h-5 w-5 hover:text-primary transition-colors" />
               </Link>
-              <Link href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <Link href="https://www.instagram.com/ram_rajurkar_007?igsh=MXJ4anJkaXVyNG5qdQ==" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                 <Instagram className="h-5 w-5 hover:text-primary transition-colors" />
               </Link>
-              <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+              {/* <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
                 <Twitter className="h-5 w-5 hover:text-primary transition-colors" />
-              </Link>
+              </Link> */}
               <Link href="mailto:ram.s.rajurkar@gmail.com" aria-label="Email">
                 <Mail className="h-5 w-5 hover:text-primary transition-colors" />
               </Link>

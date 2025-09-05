@@ -173,14 +173,15 @@ export default function Contact() {
                   </svg>
                 </a>
                 <a
-                  href="https://twitter.com"
+                  href="https://www.instagram.com/ram_rajurkar_007?igsh=MXJ4anJkaXVyNG5qdQ=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-muted hover:bg-primary/20 transition-colors p-3 rounded-full"
-                  aria-label="Twitter"
+                  aria-label="Instagram"
                 >
                   <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
+                    <path d="M7.8 2h8.4C20.4 2 22 3.6 22 7.8v8.4c0 4.2-1.6 5.8-5.8 5.8H7.8C3.6 22 2 20.4 2 16.2V7.8C2 3.6 3.6 2 7.8 2zm-.2 2A4.8 4.8 0 004 7.8v8.4c0 2.2 1.8 4 4 4h8.4c2.2 0 4-1.8 4-4V7.8c0-2.2-1.8-4-4-4H7.6z" />
+                    <path d="M12 7a5 5 0 105 5 5 5 0 00-5-5zm0 8a3 3 0 113-3 3 3 0 01-3 3zm5.7-9.1a1.2 1.2 0 101.2 1.2 1.2 1.2 0 00-1.2-1.2z" />
                   </svg>
                 </a>
               </div>
