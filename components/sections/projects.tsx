@@ -25,7 +25,7 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/viva-assessment",
     category: "featured",
-    year: "2023"
+    year: "2025"
   },
   {
     id: 1,
@@ -41,7 +41,7 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/ecommerce-grocery",
     category: "featured",
-    year: "2023"
+    year: "2024"
   },
   {
     id: 2,
@@ -52,7 +52,7 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/mytodo-flask",
     category: "web",
-    year: "2022"
+    year: "2024"
   },
   {
     id: 3,
@@ -63,7 +63,7 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/recipe-chatbot",
     category: "ai",
-    year: "2022"
+    year: "2024"
   },
   {
     id: 4,
@@ -74,18 +74,18 @@ export const projects = [
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/markdown-converter",
     category: "web",
-    year: "2021"
+    year: "2024"
   },
   {
     id: 6,
-    title: "CRM for Personalized Emails",
+    title: "CRM",
     description: "A CRM system for automating personalized follow-up emails with manual and OAuth-based SMTP.",
     image: "/images/crm-email.png",
     tags: ["Node.js", "MongoDB", "MVP Architecture", "OAuth"],
     liveUrl: "#",
     githubUrl: "https://github.com/RamRajurkar/crm-email",
     category: "web",
-    year: "2023"
+    year: "2025"
   },
 ];
 

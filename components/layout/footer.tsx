@@ -51,11 +51,11 @@ export default function Footer() {
                   Projects
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="#blog" className="text-muted-foreground hover:text-primary transition-colors">
                   Blog
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link href="#contact" className="text-muted-foreground hover:text-primary transition-colors">
                   Contact

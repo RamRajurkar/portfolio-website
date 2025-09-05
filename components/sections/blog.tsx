@@ -31,29 +31,32 @@ const blogPosts = [
     category: "Development",
     tags: ["MongoDB", "Express", "React", "Node.js"],
   },
-  // {
-  //   id: 3,
-  //   title: "Optimizing Performance in React Applications",
-  //   excerpt: "Tips and techniques for improving the performance of your React applications.",
-  //   image: "/placeholder.svg?height=600&width=800",
-  //   date: "January 20, 2023",
-  //   readTime: "10 min read",
-  //   category: "Development",
-  //   tags: ["React", "Performance", "Optimization"],
-  // },
-  // {
-  //   id: 4,
-  //   title: "Designing User-Friendly Interfaces",
-  //   excerpt: "Principles and practices for creating intuitive and accessible user interfaces.",
-  //   image: "/placeholder.svg?height=600&width=800",
-  //   date: "December 10, 2022",
-  //   readTime: "7 min read",
-  //   category: "Design",
-  //   tags: ["UI/UX", "Design", "Accessibility"],
-  // },
+  {
+    id: 3,
+    title: "Optimizing Performance in React Applications",
+    excerpt: "Tips and techniques for improving the performance of your React applications.",
+    image: "/placeholder.svg?height=600&width=800",
+    date: "January 20, 2023",
+    readTime: "10 min read",
+    category: "Development",
+    tags: ["React", "Performance", "Optimization"],
+  },
+  {
+    id: 4,
+    title: "Designing User-Friendly Interfaces",
+    excerpt: "Principles and practices for creating intuitive and accessible user interfaces.",
+    image: "/placeholder.svg?height=600&width=800",
+    date: "December 10, 2022",
+    readTime: "7 min read",
+    category: "Design",
+    tags: ["UI/UX", "Design", "Accessibility"],
+  },
 ]
 
 export default function Blog() {
+  if (blogPosts.length === 0) {
+    return null
+  }
   const [searchQuery, setSearchQuery] = useState("")
 
   const filteredPosts = blogPosts.filter(
