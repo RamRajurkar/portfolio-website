@@ -136,6 +136,13 @@ export default function Hero() {
               >
                 View My Work
               </button>
+              <a
+                href="/Ram_Rajurkar_CV.pdf"
+                download
+                className="border-2 border-black dark:border-white text-black dark:text-white px-8 py-3 rounded-full text-lg hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center justify-center"
+              >
+                Download CV
+              </a>
             </div>
           </motion.div>
 
